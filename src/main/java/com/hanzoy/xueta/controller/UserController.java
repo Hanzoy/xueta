@@ -16,6 +16,6 @@ public class UserController {
 
      @PostMapping("/login")
      public CommonResult login(@RequestBody LoginParam param){
-          return userService.login(param.getUsername(), param.getPassword());
+          return userService.check(param.getUsername(), param.getPassword());
      }
 }

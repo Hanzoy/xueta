@@ -1,7 +1,9 @@
 package com.hanzoy.xueta.service;
 
+import com.hanzoy.xueta.domain.User;
 import com.hanzoy.xueta.dto.CommonResult;
 
 public interface UserService {
-    public CommonResult login(String username, String password);
+    CommonResult check(String username, String password);
+    User check(String token);
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzoy.xueta.mapper.AphorismExtendsMapper">
+
+    <select id="getAphorism" resultType="String">
+        select aphorism from xueta.aphorism join
+            (select floor((RAND()*((select MAX(xueta.aphorism.id) from xueta.aphorism) - (select MIN(xueta.aphorism.id) from xueta.aphorism) + 1)) + (select MIN(xueta.aphorism.id) from xueta.aphorism)) AS id) AS t
+        where xueta.aphorism.id >= t.id
+        order by xueta.aphorism.id limit 1;
+    </select>
+
+
+</mapper>

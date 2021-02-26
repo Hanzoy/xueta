@@ -21,19 +21,35 @@ public class CommonResult<T> {
         this.message = message;
     }
 
-    public static <T> CommonResult<T> success(String code, String message, T data){
+    public static <T> CommonResult<T> success(T data) {
+        return new CommonResult<>(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage(), data);
+    }
+
+    public static <T> CommonResult<T> success() {
+        return new CommonResult<T>(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage());
+    }
+
+    public static <T> CommonResult<T> success(String code, String message, T data) {
         return new CommonResult<T>(code, message, data);
     }
 
-    public static <T> CommonResult<T> success(String code, String message){
+    public static <T> CommonResult<T> success(String code, String message) {
         return success(code, message, null);
     }
 
-    public static <T> CommonResult<T> fail(String code, String message, T data){
+    public static <T> CommonResult<T> fail(String code, String message, T data) {
         return new CommonResult<T>(code, message, data);
     }
 
-    public static <T> CommonResult<T> fail(String code, String message){
+    public static <T> CommonResult<T> fail(String code, String message) {
         return fail(code, message, null);
+    }
+
+    public static <T> CommonResult<T> validateFailed(String message) {
+        return new CommonResult<>(ResultEnum.VALIDATEFAILED.getCode(), message);
+    }
+
+    public static <T> CommonResult<T> tokenError(String message) {
+        return new CommonResult<>(ResultEnum.TOKENERROR.getCode(), message);
     }
 }
