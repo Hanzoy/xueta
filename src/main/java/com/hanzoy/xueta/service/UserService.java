@@ -4,6 +4,7 @@ import com.hanzoy.xueta.domain.User;
 import com.hanzoy.xueta.dto.CommonResult;
 
 public interface UserService {
-    CommonResult check(String username, String password);
+    CommonResult login(String username, String password);
     User check(String token);
+    CommonResult changePassword(User user, String oldPassword, String newPassword);
 }

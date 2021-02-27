@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public CommonResult check(String username, String password) {
+    public CommonResult login(String username, String password) {
         UserExample userExample = new UserExample();
         userExample.createCriteria()
                 .andUsernameEqualTo(username)
@@ -36,10 +36,8 @@ public class UserServiceImpl implements UserService {
         if(users.isEmpty()){
             return CommonResult.fail("1000", "用户名或密码错误");
         }
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("username", username);
         HashMap<String, String> data = new HashMap<>();
-        data.put("token", jwtUtils.createToken(map));
+        data.put("token", jwtUtils.createToken(users.get(0)));
         return CommonResult.success("0000", "一切正常", data);
     }
 
@@ -48,9 +46,18 @@ public class UserServiceImpl implements UserService {
         if(!jwtUtils.checkToken(token)){
             throw new TokenErrorException("失效的token");
         }
-        User user = new User();
-        user.setUsername(jwtUtils.getBeanAsMap(token, String.class).get("token"));
-        return user;
+        return jwtUtils.getBean(token, User.class);
+    }
+
+    @Override
+    public CommonResult changePassword(User user, String oldPassword, String newPassword) {
+        User user1 = userMapper.selectByPrimaryKey(user.getId());
+        if (!user1.getPassword().equals(oldPassword)) {
+            return CommonResult.fail("1000", "用户密码错误");
+        }
+        user1.setPassword(newPassword);
+        userMapper.updateByPrimaryKey(user1);
+        return CommonResult.success(null);
     }
 
 }

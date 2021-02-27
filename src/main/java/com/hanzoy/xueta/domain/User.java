@@ -1,8 +1,12 @@
 package com.hanzoy.xueta.domain;
 
+import com.hanzoy.utils.Token;
+
 public class User {
+    @Token
     private String id;
 
+    @Token
     private String username;
 
     private String password;
