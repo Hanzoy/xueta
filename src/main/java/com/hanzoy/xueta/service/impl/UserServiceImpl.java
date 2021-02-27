@@ -7,6 +7,7 @@ import com.hanzoy.xueta.dto.CommonResult;
 import com.hanzoy.xueta.exception.TokenErrorException;
 import com.hanzoy.xueta.mapper.UserMapper;
 import com.hanzoy.xueta.service.UserService;
+import com.hanzoy.xueta.utils.HttpUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -56,8 +57,10 @@ public class UserServiceImpl implements UserService {
             return CommonResult.fail("1000", "用户密码错误");
         }
         user1.setPassword(newPassword);
-        userMapper.updateByPrimaryKey(user1);
-        return CommonResult.success(null);
+        if (HttpUtils.changePassword(user1)) {
+            userMapper.updateByPrimaryKey(user1);
+            return CommonResult.success(null);
+        }
+        return CommonResult.fail("1002", "修改密码失败");
     }
-
 }
