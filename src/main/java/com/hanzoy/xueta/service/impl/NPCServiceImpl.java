@@ -25,12 +25,17 @@ public class NPCServiceImpl implements NPCService {
         for(int i=0; i<l; i++){
             Npcjlb npcjlb = new Npcjlb();
             npcjlb.setUserid(id);
-            npcjlb.setNpcid((int) (l+1));
+            npcjlb.setNpcid(i+1);
             npcjlb.setFavor(0);
             npcjlb.setIshaving(false);
             npcjlb.setIsdialogue(false);
-            npcjlbMapper.insertSelective(npcjlb);
+            npcjlbMapper.insert(npcjlb);
 //            npcjlbMapper.insert(npcjlb);
         }
+    }
+
+    @Override
+    public void triggerThePlot(int userId, int Reid) {
+        System.out.println(userId + "触发了"+Reid+"剧情");
     }
 }

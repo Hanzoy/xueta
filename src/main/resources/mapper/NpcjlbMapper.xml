@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hanzoy.xueta.mapper.NpcjlbMapper">
   <resultMap id="BaseResultMap" type="com.hanzoy.xueta.domain.Npcjlb">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="userid" jdbcType="INTEGER" property="userid" />
-    <result column="npcid" jdbcType="INTEGER" property="npcid" />
+    <id column="userid" jdbcType="INTEGER" property="userid" />
+    <id column="npcid" jdbcType="INTEGER" property="npcid" />
     <result column="isHaving" jdbcType="BIT" property="ishaving" />
     <result column="favor" jdbcType="INTEGER" property="favor" />
     <result column="Reid" jdbcType="INTEGER" property="reid" />
     <result column="isDialogue" jdbcType="BIT" property="isdialogue" />
+    <result column="propnumber" jdbcType="INTEGER" property="propnumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, npcid, isHaving, favor, Reid, isDialogue
+    userid, npcid, isHaving, favor, Reid, isDialogue, propnumber
   </sql>
   <select id="selectByExample" parameterType="com.hanzoy.xueta.domain.NpcjlbExample" resultMap="BaseResultMap">
     select
@@ -85,15 +85,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from npcjlb
-    where id = #{id,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER}
+      and npcid = #{npcid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="map">
     delete from npcjlb
-    where id = #{id,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER}
+      and npcid = #{npcid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.hanzoy.xueta.domain.NpcjlbExample">
     delete from npcjlb
@@ -102,19 +104,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hanzoy.xueta.domain.Npcjlb">
-    insert into npcjlb (id, userid, npcid, 
-      isHaving, favor, Reid, 
-      isDialogue)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{npcid,jdbcType=INTEGER}, 
-      #{ishaving,jdbcType=BIT}, #{favor,jdbcType=INTEGER}, #{reid,jdbcType=INTEGER}, 
-      #{isdialogue,jdbcType=BIT})
+    insert into npcjlb (userid, npcid, isHaving, 
+      favor, Reid, isDialogue, 
+      propnumber)
+    values (#{userid,jdbcType=INTEGER}, #{npcid,jdbcType=INTEGER}, #{ishaving,jdbcType=BIT}, 
+      #{favor,jdbcType=INTEGER}, #{reid,jdbcType=INTEGER}, #{isdialogue,jdbcType=BIT}, 
+      #{propnumber,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.hanzoy.xueta.domain.Npcjlb">
     insert into npcjlb
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="userid != null">
         userid,
       </if>
@@ -133,11 +132,11 @@
       <if test="isdialogue != null">
         isDialogue,
       </if>
+      <if test="propnumber != null">
+        propnumber,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="userid != null">
         #{userid,jdbcType=INTEGER},
       </if>
@@ -156,6 +155,9 @@
       <if test="isdialogue != null">
         #{isdialogue,jdbcType=BIT},
       </if>
+      <if test="propnumber != null">
+        #{propnumber,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.hanzoy.xueta.domain.NpcjlbExample" resultType="java.lang.Long">
@@ -167,9 +169,6 @@
   <update id="updateByExampleSelective" parameterType="map">
     update npcjlb
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
       <if test="record.userid != null">
         userid = #{record.userid,jdbcType=INTEGER},
       </if>
@@ -188,6 +187,9 @@
       <if test="record.isdialogue != null">
         isDialogue = #{record.isdialogue,jdbcType=BIT},
       </if>
+      <if test="record.propnumber != null">
+        propnumber = #{record.propnumber,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -195,13 +197,13 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update npcjlb
-    set id = #{record.id,jdbcType=INTEGER},
-      userid = #{record.userid,jdbcType=INTEGER},
+    set userid = #{record.userid,jdbcType=INTEGER},
       npcid = #{record.npcid,jdbcType=INTEGER},
       isHaving = #{record.ishaving,jdbcType=BIT},
       favor = #{record.favor,jdbcType=INTEGER},
       Reid = #{record.reid,jdbcType=INTEGER},
-      isDialogue = #{record.isdialogue,jdbcType=BIT}
+      isDialogue = #{record.isdialogue,jdbcType=BIT},
+      propnumber = #{record.propnumber,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,12 +211,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.hanzoy.xueta.domain.Npcjlb">
     update npcjlb
     <set>
-      <if test="userid != null">
-        userid = #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="npcid != null">
-        npcid = #{npcid,jdbcType=INTEGER},
-      </if>
       <if test="ishaving != null">
         isHaving = #{ishaving,jdbcType=BIT},
       </if>
@@ -227,17 +223,21 @@
       <if test="isdialogue != null">
         isDialogue = #{isdialogue,jdbcType=BIT},
       </if>
+      <if test="propnumber != null">
+        propnumber = #{propnumber,jdbcType=INTEGER},
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER}
+      and npcid = #{npcid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hanzoy.xueta.domain.Npcjlb">
     update npcjlb
-    set userid = #{userid,jdbcType=INTEGER},
-      npcid = #{npcid,jdbcType=INTEGER},
-      isHaving = #{ishaving,jdbcType=BIT},
+    set isHaving = #{ishaving,jdbcType=BIT},
       favor = #{favor,jdbcType=INTEGER},
       Reid = #{reid,jdbcType=INTEGER},
-      isDialogue = #{isdialogue,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
+      isDialogue = #{isdialogue,jdbcType=BIT},
+      propnumber = #{propnumber,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER}
+      and npcid = #{npcid,jdbcType=INTEGER}
   </update>
 </mapper>

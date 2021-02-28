@@ -1,8 +1,6 @@
 package com.hanzoy.xueta.domain;
 
 public class Npcjlb {
-    private Integer id;
-
     private Integer userid;
 
     private Integer npcid;
@@ -15,13 +13,7 @@ public class Npcjlb {
 
     private Boolean isdialogue;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Integer propnumber;
 
     public Integer getUserid() {
         return userid;
@@ -71,19 +63,27 @@ public class Npcjlb {
         this.isdialogue = isdialogue;
     }
 
+    public Integer getPropnumber() {
+        return propnumber;
+    }
+
+    public void setPropnumber(Integer propnumber) {
+        this.propnumber = propnumber;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", userid=").append(userid);
         sb.append(", npcid=").append(npcid);
         sb.append(", ishaving=").append(ishaving);
         sb.append(", favor=").append(favor);
         sb.append(", reid=").append(reid);
         sb.append(", isdialogue=").append(isdialogue);
+        sb.append(", propnumber=").append(propnumber);
         sb.append("]");
         return sb.toString();
     }

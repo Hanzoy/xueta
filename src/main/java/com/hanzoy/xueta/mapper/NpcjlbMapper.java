@@ -10,7 +10,7 @@ public interface NpcjlbMapper {
 
     int deleteByExample(NpcjlbExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(@Param("userid") Integer userid, @Param("npcid") Integer npcid);
 
     int insert(Npcjlb record);
 
@@ -18,7 +18,7 @@ public interface NpcjlbMapper {
 
     List<Npcjlb> selectByExample(NpcjlbExample example);
 
-    Npcjlb selectByPrimaryKey(Integer id);
+    Npcjlb selectByPrimaryKey(@Param("userid") Integer userid, @Param("npcid") Integer npcid);
 
     int updateByExampleSelective(@Param("record") Npcjlb record, @Param("example") NpcjlbExample example);
 

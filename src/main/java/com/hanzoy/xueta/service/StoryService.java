@@ -5,4 +5,5 @@ import com.hanzoy.xueta.dto.CommonResult;
 public interface StoryService {
     CommonResult getPropList();
     CommonResult getRoleList(String token);
+    CommonResult buyProps(String token, int id);
 }

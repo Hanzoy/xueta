@@ -5,14 +5,18 @@ import com.hanzoy.xueta.dto.CommonResult;
 import com.hanzoy.xueta.mapper.NpcjlbMapper;
 import com.hanzoy.xueta.mapper.PropMapper;
 import com.hanzoy.xueta.mapper.RoleMapper;
+import com.hanzoy.xueta.mapper.UserMapper;
+import com.hanzoy.xueta.service.NPCService;
 import com.hanzoy.xueta.service.StoryService;
 import com.hanzoy.xueta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+
 @Service
 public class StoryServiceImpl implements StoryService {
 
@@ -27,6 +31,12 @@ public class StoryServiceImpl implements StoryService {
 
     @Resource
     NpcjlbMapper npcjlbMapper;
+
+    @Resource
+    UserMapper userMapper;
+
+    @Autowired
+    NPCService npcService;
 
     @Override
     public CommonResult getPropList() {
@@ -50,8 +60,7 @@ public class StoryServiceImpl implements StoryService {
         npcjlbExample.createCriteria()
                 .andUseridEqualTo(user.getId());
         List<Npcjlb> npcjlbs = npcjlbMapper.selectByExample(npcjlbExample);
-        System.out.println(npcjlbs);
-        int i=0;
+        int i = 0;
         for (Role role : roles) {
             role.setDynasty(null);
             role.setTradename(null);
@@ -61,6 +70,36 @@ public class StoryServiceImpl implements StoryService {
         HashMap<String, Object> data = new HashMap<>();
         data.put("count", roles.size());
         data.put("info", roles);
+        return CommonResult.success(data);
+    }
+
+    @Transactional
+    @Override
+    public CommonResult buyProps(String token, int id) {
+        User user = userService.getUserByToken(token);
+        user = userMapper.selectByPrimaryKey(user.getId());
+        Prop prop = propMapper.selectByPrimaryKey(id);
+        if(user.getMoney() < prop.getPrice()){
+            return CommonResult.fail("1002", "购买失败");
+        }
+        NpcjlbExample npcjlbExample = new NpcjlbExample();
+        npcjlbExample.createCriteria()
+                .andNpcidEqualTo(id)
+                .andUseridEqualTo(user.getId());
+        List<Npcjlb> npcjlbs = npcjlbMapper.selectByExample(npcjlbExample);
+        if(!npcjlbs.get(0).getIshaving()){
+            return CommonResult.fail("1002", "购买失败");
+        }
+        user.setMoney(user.getMoney() - prop.getPrice());
+        userMapper.updateByPrimaryKey(user);
+        //购买产品时将npcjlbs表中的propnumber++；
+        if(npcjlbs.get(0).getPropnumber() == null){
+            npcjlbs.get(0).setPropnumber(0);
+        }
+        npcjlbs.get(0).setPropnumber(npcjlbs.get(0).getPropnumber()+1);
+        npcjlbMapper.updateByPrimaryKey(npcjlbs.get(0));
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("money", user.getMoney());
         return CommonResult.success(data);
     }
 }
