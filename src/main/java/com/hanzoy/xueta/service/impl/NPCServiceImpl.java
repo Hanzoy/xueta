@@ -38,4 +38,9 @@ public class NPCServiceImpl implements NPCService {
     public void triggerThePlot(int userId, int Reid) {
         System.out.println(userId + "触发了"+Reid+"剧情");
     }
+
+    @Override
+    public void setReid(int userId, int npcId, int Reid) {
+        System.out.println("修改了" + userId + "的"+npcId+"的Reid为"+Reid);
+    }
 }

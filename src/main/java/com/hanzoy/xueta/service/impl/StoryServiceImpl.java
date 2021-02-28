@@ -78,10 +78,14 @@ public class StoryServiceImpl implements StoryService {
     public CommonResult buyProps(String token, int id) {
         User user = userService.getUserByToken(token);
         user = userMapper.selectByPrimaryKey(user.getId());
+        //获取user
+
         Prop prop = propMapper.selectByPrimaryKey(id);
         if(user.getMoney() < prop.getPrice()){
             return CommonResult.fail("1002", "购买失败");
         }
+
+        //这里可以改成npcjlbMapper.selectByPrimaryKey(user.getId(), id); 我懒得改了
         NpcjlbExample npcjlbExample = new NpcjlbExample();
         npcjlbExample.createCriteria()
                 .andNpcidEqualTo(id)
@@ -98,6 +102,33 @@ public class StoryServiceImpl implements StoryService {
         }
         npcjlbs.get(0).setPropnumber(npcjlbs.get(0).getPropnumber()+1);
         npcjlbMapper.updateByPrimaryKey(npcjlbs.get(0));
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("money", user.getMoney());
+        return CommonResult.success(data);
+    }
+
+    @Override
+    public CommonResult buyRoles(String token, int id) {
+        User user = userService.getUserByToken(token);
+        user = userMapper.selectByPrimaryKey(user.getId());
+        //获取user
+
+        Role role = roleMapper.selectByPrimaryKey(id);
+        if(user.getMoney() < role.getPrice()){
+            return CommonResult.fail("1002", "购买失败");
+        }
+
+        Npcjlb npcjlb = npcjlbMapper.selectByPrimaryKey(user.getId(), id);
+        if (npcjlb.getIshaving()) {
+            return CommonResult.fail("1002", "购买失败");
+        }
+        npcjlb.setIshaving(true);
+        npcjlb.setReid(role.getReid());
+        npcjlbMapper.updateByPrimaryKey(npcjlb);
+
+        user.setMoney(user.getMoney() - role.getPrice());
+        userMapper.updateByPrimaryKey(user);
+
         HashMap<String, Object> data = new HashMap<>();
         data.put("money", user.getMoney());
         return CommonResult.success(data);

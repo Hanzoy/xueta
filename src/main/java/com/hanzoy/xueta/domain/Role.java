@@ -1,5 +1,6 @@
 package com.hanzoy.xueta.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -25,6 +26,9 @@ public class Role {
     private Boolean isdialogue;
 
     private Boolean ishaving;
+
+    @JsonIgnore
+    private Integer reid;
 
     public Integer getId() {
         return id;
@@ -114,6 +118,14 @@ public class Role {
         this.ishaving = ishaving;
     }
 
+    public Integer getReid() {
+        return reid;
+    }
+
+    public void setReid(Integer reid) {
+        this.reid = reid;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -131,6 +143,7 @@ public class Role {
         sb.append(", favor=").append(favor);
         sb.append(", isdialogue=").append(isdialogue);
         sb.append(", ishaving=").append(ishaving);
+        sb.append(", reid=").append(reid);
         sb.append("]");
         return sb.toString();
     }

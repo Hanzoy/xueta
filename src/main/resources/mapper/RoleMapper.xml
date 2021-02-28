@@ -13,6 +13,7 @@
     <result column="favor" jdbcType="INTEGER" property="favor" />
     <result column="isDialogue" jdbcType="BIT" property="isdialogue" />
     <result column="isHaving" jdbcType="BIT" property="ishaving" />
+    <result column="reid" jdbcType="INTEGER" property="reid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, name, dynasty, tradeName, picture, portrait, description, price, favor, isDialogue, 
-    isHaving
+    isHaving, reid
   </sql>
   <select id="selectByExample" parameterType="com.hanzoy.xueta.domain.RoleExample" resultMap="BaseResultMap">
     select
@@ -110,11 +111,11 @@
     insert into role (id, name, dynasty, 
       tradeName, picture, portrait, 
       description, price, favor, 
-      isDialogue, isHaving)
+      isDialogue, isHaving, reid)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{dynasty,jdbcType=VARCHAR}, 
       #{tradename,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{portrait,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{favor,jdbcType=INTEGER}, 
-      #{isdialogue,jdbcType=BIT}, #{ishaving,jdbcType=BIT})
+      #{isdialogue,jdbcType=BIT}, #{ishaving,jdbcType=BIT}, #{reid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.hanzoy.xueta.domain.Role">
     insert into role
@@ -152,6 +153,9 @@
       <if test="ishaving != null">
         isHaving,
       </if>
+      <if test="reid != null">
+        reid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -186,6 +190,9 @@
       </if>
       <if test="ishaving != null">
         #{ishaving,jdbcType=BIT},
+      </if>
+      <if test="reid != null">
+        #{reid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -231,6 +238,9 @@
       <if test="record.ishaving != null">
         isHaving = #{record.ishaving,jdbcType=BIT},
       </if>
+      <if test="record.reid != null">
+        reid = #{record.reid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +258,8 @@
       price = #{record.price,jdbcType=INTEGER},
       favor = #{record.favor,jdbcType=INTEGER},
       isDialogue = #{record.isdialogue,jdbcType=BIT},
-      isHaving = #{record.ishaving,jdbcType=BIT}
+      isHaving = #{record.ishaving,jdbcType=BIT},
+      reid = #{record.reid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,6 +297,9 @@
       <if test="ishaving != null">
         isHaving = #{ishaving,jdbcType=BIT},
       </if>
+      <if test="reid != null">
+        reid = #{reid,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -300,7 +314,8 @@
       price = #{price,jdbcType=INTEGER},
       favor = #{favor,jdbcType=INTEGER},
       isDialogue = #{isdialogue,jdbcType=BIT},
-      isHaving = #{ishaving,jdbcType=BIT}
+      isHaving = #{ishaving,jdbcType=BIT},
+      reid = #{reid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -823,6 +823,66 @@ public class RoleExample {
             addCriterion("isHaving not between", value1, value2, "ishaving");
             return (Criteria) this;
         }
+
+        public Criteria andReidIsNull() {
+            addCriterion("reid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidIsNotNull() {
+            addCriterion("reid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidEqualTo(Integer value) {
+            addCriterion("reid =", value, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidNotEqualTo(Integer value) {
+            addCriterion("reid <>", value, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidGreaterThan(Integer value) {
+            addCriterion("reid >", value, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("reid >=", value, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidLessThan(Integer value) {
+            addCriterion("reid <", value, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidLessThanOrEqualTo(Integer value) {
+            addCriterion("reid <=", value, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidIn(List<Integer> values) {
+            addCriterion("reid in", values, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidNotIn(List<Integer> values) {
+            addCriterion("reid not in", values, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidBetween(Integer value1, Integer value2) {
+            addCriterion("reid between", value1, value2, "reid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReidNotBetween(Integer value1, Integer value2) {
+            addCriterion("reid not between", value1, value2, "reid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
