@@ -30,7 +30,7 @@ public class UserController {
 
      @PostMapping("/changePassword")
      public CommonResult changePassword(@RequestBody ChangePasswordParam param){
-          User user = userService.check(param.getToken());
+          User user = userService.getUserByToken(param.getToken());
           return userService.changePassword(user, param.getOldPassword(), param.getNewPassword());
      }
 
@@ -43,4 +43,6 @@ public class UserController {
      public CommonResult register(@RequestBody RegisterParam param){
           return userService.register(param.getUsername(), param.getPassword(), param.getPhone(), param.getVerification());
      }
+
+
 }

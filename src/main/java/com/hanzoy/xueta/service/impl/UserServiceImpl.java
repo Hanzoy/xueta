@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,11 +49,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User check(String token) {
+    public void check(String token) {
         if(!jwtUtils.checkToken(token)){
             throw new TokenErrorException("失效的token");
         }
-        return jwtUtils.getBean(token, User.class);
     }
 
     @Override
@@ -95,6 +95,45 @@ public class UserServiceImpl implements UserService {
 
 
         return CommonResult.success(data);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andUsernameEqualTo(username);
+        List<User> users = userMapper.selectByExample(userExample);
+        return users.get(0);
+    }
+
+    @Override
+    public User getUserByPhone(String phone) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andPhoneEqualTo(phone);
+        List<User> users = userMapper.selectByExample(userExample);
+        return users.get(0);
+    }
+
+    @Override
+    public User getUserByToken(String token) {
+        check(token);
+        return jwtUtils.getBean(token, User.class);
+    }
+
+    @Override
+    public JWTUtils getJWTUtils() {
+        return jwtUtils;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public String createTokenFromMap(Map<String, ?> map) {
+        return JWTUtils.createTokenFromMap(map, SING, TIME);
     }
 
     private boolean usernameIsExistence(String username){
