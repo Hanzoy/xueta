@@ -3,6 +3,8 @@ package com.hanzoy.xueta.controller;
 import com.hanzoy.xueta.dto.CommonResult;
 import com.hanzoy.xueta.dto.param.CheckVerificationParam;
 import com.hanzoy.xueta.dto.param.ForgetChangePasswordParam;
+import com.hanzoy.xueta.dto.param.TokenParam;
+import com.hanzoy.xueta.dto.param.UsernameParam;
 import com.hanzoy.xueta.service.ForgetPasswordService;
 import com.hanzoy.xueta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,13 @@ public class ForgetPasswordController {
     ForgetPasswordService forgetPasswordService;
 
     @PostMapping("/getUser")
-    public CommonResult forgetGetUser(@RequestBody HashMap<String, String> param){
-        return forgetPasswordService.getUser(param.get("username"));
+    public CommonResult forgetGetUser(@RequestBody UsernameParam param){
+        return forgetPasswordService.getUser(param.getUsername());
     }
 
     @PostMapping("/verification")
-    public void sendVerificationCode(@RequestBody HashMap<String, String> param){
-        forgetPasswordService.sendVerificationCode(param.get("token"));
+    public void sendVerificationCode(@RequestBody TokenParam param){
+        forgetPasswordService.sendVerificationCode(param.getToken());
     }
 
     @PostMapping("/checkVerification")

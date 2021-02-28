@@ -13,6 +13,8 @@ public class User {
 
     private String phone;
 
+    private Integer money;
+
     public Integer getId() {
         return id;
     }
@@ -45,6 +47,14 @@ public class User {
         this.phone = phone;
     }
 
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -55,6 +65,7 @@ public class User {
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", phone=").append(phone);
+        sb.append(", money=").append(money);
         sb.append("]");
         return sb.toString();
     }

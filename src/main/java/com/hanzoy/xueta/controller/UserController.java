@@ -4,6 +4,7 @@ import com.hanzoy.xueta.domain.User;
 import com.hanzoy.xueta.dto.CommonResult;
 import com.hanzoy.xueta.dto.param.ChangePasswordParam;
 import com.hanzoy.xueta.dto.param.LoginParam;
+import com.hanzoy.xueta.dto.param.PhoneParam;
 import com.hanzoy.xueta.dto.param.RegisterParam;
 import com.hanzoy.xueta.service.UserService;
 import com.hanzoy.xueta.service.VerificationCodeService;
@@ -35,8 +36,8 @@ public class UserController {
      }
 
      @PostMapping("/register/verification")
-     public void registerVerification(@RequestBody HashMap<String, String> param){
-          verificationCodeService.sendVerificationCode(param.get("phone"));
+     public void registerVerification(@RequestBody PhoneParam param){
+          verificationCodeService.sendVerificationCode(param.getPhone());
      }
 
      @PostMapping("/register/user")

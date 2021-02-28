@@ -136,6 +136,11 @@ public class UserServiceImpl implements UserService {
         return JWTUtils.createTokenFromMap(map, SING, TIME);
     }
 
+    @Override
+    public User getUserById(int id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
     private boolean usernameIsExistence(String username){
         UserExample userExample = new UserExample();
         userExample.createCriteria()

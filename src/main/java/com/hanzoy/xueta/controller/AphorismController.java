@@ -1,6 +1,7 @@
 package com.hanzoy.xueta.controller;
 
 import com.hanzoy.xueta.dto.CommonResult;
+import com.hanzoy.xueta.dto.param.TokenParam;
 import com.hanzoy.xueta.service.AphorismService;
 import com.hanzoy.xueta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class AphorismController {
     AphorismService aphorismService;
 
     @PostMapping("/aphorism")
-    public CommonResult getAphorism(@RequestBody HashMap<String, String> param){
-        String token = param.get("token");
+    public CommonResult getAphorism(@RequestBody TokenParam param){
+        String token = param.getToken();
         userService.check(token);
         return aphorismService.getAphorism();
     }

@@ -17,4 +17,5 @@ public interface UserService {
     JWTUtils getJWTUtils();
     void updateUser(User user);
     String createTokenFromMap(Map<String, ?> map);
+    User getUserById(int id);
 }
