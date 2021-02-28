@@ -39,7 +39,9 @@
 
 <!--        <table tableName="user" domainObjectName="User"/>-->
 <!--        <table tableName="aphorism" domainObjectName="Aphorism"/>-->
-        <table tableName="prop" domainObjectName="Prop"/>
+<!--        <table tableName="prop" domainObjectName="Prop"/>-->
+<!--        <table tableName="role" domainObjectName="Role"/>-->
+        <table tableName="npcjlb" domainObjectName="Npcjlb"/>
     </context>
 
 </generatorConfiguration>

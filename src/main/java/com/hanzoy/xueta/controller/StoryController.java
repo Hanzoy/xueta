@@ -1,9 +1,11 @@
 package com.hanzoy.xueta.controller;
 
 import com.hanzoy.xueta.dto.CommonResult;
+import com.hanzoy.xueta.dto.param.TokenParam;
 import com.hanzoy.xueta.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +21,8 @@ public class StoryController {
         return storyService.getPropList();
     }
 
-
+    @PostMapping("/getRoleList")
+    public CommonResult getRoleList(@RequestBody TokenParam param){
+        return storyService.getRoleList(param.getToken());
+    }
 }

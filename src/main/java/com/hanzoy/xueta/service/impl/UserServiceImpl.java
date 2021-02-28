@@ -6,11 +6,13 @@ import com.hanzoy.xueta.domain.UserExample;
 import com.hanzoy.xueta.dto.CommonResult;
 import com.hanzoy.xueta.exception.TokenErrorException;
 import com.hanzoy.xueta.mapper.UserMapper;
+import com.hanzoy.xueta.service.NPCService;
 import com.hanzoy.xueta.service.UserService;
 import com.hanzoy.xueta.service.VerificationCodeService;
 import com.hanzoy.xueta.utils.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -32,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     VerificationCodeService verificationCodeService;
+
+    @Autowired
+    NPCService npcService;
 
     @Override
     public CommonResult login(String username, String password) {
@@ -69,6 +74,7 @@ public class UserServiceImpl implements UserService {
         return CommonResult.fail("1002", "修改密码失败");
     }
 
+    @Transactional
     @Override
     public CommonResult register(String username, String password, String phone, String verification) {
         if(usernameIsExistence(username)){
@@ -81,6 +87,7 @@ public class UserServiceImpl implements UserService {
         user.setPhone(phone);
         user.setUsername(username);
         user.setPassword(password);
+        user.setMoney(50);
         userMapper.insert(user);
 
         UserExample userExample = new UserExample();
@@ -88,6 +95,8 @@ public class UserServiceImpl implements UserService {
                 .andUsernameEqualTo(username);
 
         List<User> users = userMapper.selectByExample(userExample);
+
+        npcService.registerUser(users.get(0).getId());
         verificationCodeService.deleteVerificationCode(phone);
 
         HashMap<String, String> data = new HashMap<>();
