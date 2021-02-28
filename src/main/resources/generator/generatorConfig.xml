@@ -37,7 +37,7 @@
                              targetPackage="com.hanzoy.xueta.mapper"
                              type="XMLMAPPER"/>
 
-<!--        <table tableName="user" domainObjectName="User"/>-->
+        <table tableName="user" domainObjectName="User"/>
         <table tableName="aphorism" domainObjectName="Aphorism"/>
     </context>
 

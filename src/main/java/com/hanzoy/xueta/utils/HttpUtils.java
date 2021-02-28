@@ -8,9 +8,9 @@ import java.util.Objects;
 
 public class HttpUtils {
     public static final String BASIC = "Basic OTVhMzRhZjhhZjc1MWZlM2FmNzRlYzc0OmU0ZTk2ZjZmZTU2NzY3Zjc0N2E0ZGIwYQ==";
+    public static final OkHttpClient client = new OkHttpClient().newBuilder().build();
 
     public static boolean changePassword(User user){
-        final OkHttpClient client = new OkHttpClient().newBuilder().build();
         String param = "{\"new_password\":\""+user.getPassword()+"\"}";
         String URL = "https://api.im.jpush.cn/v1/users/"+user.getUsername()+"/password";
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), param);
@@ -27,5 +27,17 @@ public class HttpUtils {
             return false;
         }
         return responseBody.equals("");
+    }
+
+    public static void sendVerificationCode(String phone, String code){
+        String URL = "http://api.smsbao.com/sms?u=hanzoy&p=35293F284C4BB4C979332C80EE2B0DC8&m="+phone+"&c=%e3%80%90%e5%ad%a6%e4%bb%96%e3%80%91%e6%82%a8%e7%9a%84%e9%aa%8c%e8%af%81%e7%a0%81%e4%b8%ba"+code+"%ef%bc%8c%e8%af%b7%e5%9c%a85%e5%88%86%e9%92%9f%e5%86%85%e5%ae%8c%e6%88%90%e6%93%8d%e4%bd%9c%e3%80%82%e9%aa%8c%e8%af%81%e7%a0%81%e8%af%b7%e5%8b%bf%e6%b3%84%e9%9c%b2%ef%bc%8c%e5%a6%82%e9%9d%9e%e6%9c%ac%e4%ba%ba%e6%93%8d%e4%bd%9c%ef%bc%8c%e8%af%b7%e5%bf%bd%e7%95%a5%e3%80%82";
+        Request request = new Request.Builder()
+                .url(URL)
+                .build();
+        try {
+            Objects.requireNonNull(client.newCall(request).execute().body()).string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

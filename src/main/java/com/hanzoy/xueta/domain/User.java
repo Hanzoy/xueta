@@ -4,18 +4,20 @@ import com.hanzoy.utils.Token;
 
 public class User {
     @Token
-    private String id;
+    private Integer id;
 
     @Token
     private String username;
 
     private String password;
 
-    public String getId() {
+    private String phone;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,6 +37,14 @@ public class User {
         this.password = password;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -44,6 +54,7 @@ public class User {
         sb.append(", id=").append(id);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
+        sb.append(", phone=").append(phone);
         sb.append("]");
         return sb.toString();
     }
