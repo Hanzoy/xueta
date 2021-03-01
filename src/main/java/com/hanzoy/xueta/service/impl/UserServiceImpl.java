@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -196,7 +197,39 @@ public class UserServiceImpl implements UserService {
                 .andUseridEqualTo(user.getId());
         List<Label> labels = labelMapper.selectByExample(labelExample);
 
-        return null;
+        int allTime = 0;
+        int allNumber = 0;
+        int time = 0;
+        int number = 0;
+        for (Label label : labels) {
+            allTime+=label.getAlltime();
+            allNumber+=label.getAllnumber();
+            time +=label.getWeektime();
+            number+=label.getWeeknumber();
+        }
+        int size = labels.size();
+        int ls = 100;
+        ArrayList<HashMap<String, Object>> info = new ArrayList<>();
+        for(int i=0; i<size-1; i++){
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("name", labels.get(i).getLabel());
+            hashMap.put("size", labels.get(i).getAlltime()*100/allTime);
+            ls -= labels.get(i).getAlltime()*100/allTime;
+            info.add(hashMap);
+        }
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("name", labels.get(size-1).getLabel());
+        hashMap.put("size", ls);
+        info.add(hashMap);
+
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("allTime", allTime);
+        data.put("allNumber", allNumber);
+        data.put("avgTime", allTime*1.0/allNumber);
+        data.put("time", time);
+        data.put("number", number);
+        data.put("info", info);
+        return CommonResult.success(data);
     }
 
     private boolean usernameIsExistence(String username) {
@@ -224,12 +257,16 @@ public class UserServiceImpl implements UserService {
             label = new Label();
             label.setWeektime(0);
             label.setAlltime(0);
+            label.setWeeknumber(0);
+            label.setAllnumber(0);
         } else {
             label = labels.get(0);
         }
         label.setLabel(param.getLabel());
         label.setWeektime(label.getWeektime() + param.getTime());
         label.setAlltime(label.getAlltime() + param.getTime());
+        label.setWeeknumber(label.getWeeknumber() + 1);
+        label.setAllnumber(label.getAllnumber() + 1);
         label.setUserid(user.getId());
         user.setMoney(user.getMoney() + param.getTime() * pre);
 

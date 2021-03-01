@@ -45,7 +45,7 @@
 <!--        <table tableName="dialogue" domainObjectName="Dialogue"/>-->
 <!--        <table tableName="content" domainObjectName="Content"/>-->
 <!--        <table tableName="reply" domainObjectName="Reply"/>-->
-<!--        <table tableName="label" domainObjectName="Label"/>-->
+        <table tableName="label" domainObjectName="Label"/>
 <!--        <table tableName="groups" domainObjectName="Groups"/>-->
     </context>
 

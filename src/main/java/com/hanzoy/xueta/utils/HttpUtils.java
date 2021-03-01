@@ -57,11 +57,11 @@ public class HttpUtils {
                     res.add(groups);
                 }
             }else {
-                return null;
+                return new ArrayList<>();
             }
             return res;
         } catch (IOException e) {
-            return null;
+            return new ArrayList<>();
         }
     }
 

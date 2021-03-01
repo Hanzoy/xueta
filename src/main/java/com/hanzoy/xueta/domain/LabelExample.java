@@ -413,6 +413,126 @@ public class LabelExample {
             addCriterion("allTime not between", value1, value2, "alltime");
             return (Criteria) this;
         }
+
+        public Criteria andWeeknumberIsNull() {
+            addCriterion("weekNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberIsNotNull() {
+            addCriterion("weekNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberEqualTo(Integer value) {
+            addCriterion("weekNumber =", value, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberNotEqualTo(Integer value) {
+            addCriterion("weekNumber <>", value, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberGreaterThan(Integer value) {
+            addCriterion("weekNumber >", value, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("weekNumber >=", value, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberLessThan(Integer value) {
+            addCriterion("weekNumber <", value, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberLessThanOrEqualTo(Integer value) {
+            addCriterion("weekNumber <=", value, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberIn(List<Integer> values) {
+            addCriterion("weekNumber in", values, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberNotIn(List<Integer> values) {
+            addCriterion("weekNumber not in", values, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberBetween(Integer value1, Integer value2) {
+            addCriterion("weekNumber between", value1, value2, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeeknumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("weekNumber not between", value1, value2, "weeknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberIsNull() {
+            addCriterion("allNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberIsNotNull() {
+            addCriterion("allNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberEqualTo(Integer value) {
+            addCriterion("allNumber =", value, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberNotEqualTo(Integer value) {
+            addCriterion("allNumber <>", value, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberGreaterThan(Integer value) {
+            addCriterion("allNumber >", value, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("allNumber >=", value, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberLessThan(Integer value) {
+            addCriterion("allNumber <", value, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberLessThanOrEqualTo(Integer value) {
+            addCriterion("allNumber <=", value, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberIn(List<Integer> values) {
+            addCriterion("allNumber in", values, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberNotIn(List<Integer> values) {
+            addCriterion("allNumber not in", values, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberBetween(Integer value1, Integer value2) {
+            addCriterion("allNumber between", value1, value2, "allnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllnumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("allNumber not between", value1, value2, "allnumber");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
