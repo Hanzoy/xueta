@@ -1,6 +1,7 @@
 package com.hanzoy.xueta.controller;
 
 import com.hanzoy.xueta.dto.CommonResult;
+import com.hanzoy.xueta.dto.param.TokenAndIdParam;
 import com.hanzoy.xueta.dto.param.TokenParam;
 import com.hanzoy.xueta.service.NPCService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class NPCController {
     @PostMapping("/getInfo")
     public CommonResult getInfo(@RequestBody TokenParam param){
         return npcService.getInfo(param.getToken());
+    }
+
+    @PostMapping("/getDialogue")
+    public CommonResult getDialogue(@RequestBody TokenAndIdParam param){
+        return npcService.getDialogue(param.getToken(), param.getId());
     }
 }

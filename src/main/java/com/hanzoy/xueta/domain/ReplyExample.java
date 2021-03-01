@@ -293,6 +293,66 @@ public class ReplyExample {
             addCriterion("reply not between", value1, value2, "reply");
             return (Criteria) this;
         }
+
+        public Criteria andFavorIsNull() {
+            addCriterion("favor is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorIsNotNull() {
+            addCriterion("favor is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorEqualTo(Integer value) {
+            addCriterion("favor =", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorNotEqualTo(Integer value) {
+            addCriterion("favor <>", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorGreaterThan(Integer value) {
+            addCriterion("favor >", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorGreaterThanOrEqualTo(Integer value) {
+            addCriterion("favor >=", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorLessThan(Integer value) {
+            addCriterion("favor <", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorLessThanOrEqualTo(Integer value) {
+            addCriterion("favor <=", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorIn(List<Integer> values) {
+            addCriterion("favor in", values, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorNotIn(List<Integer> values) {
+            addCriterion("favor not in", values, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorBetween(Integer value1, Integer value2) {
+            addCriterion("favor between", value1, value2, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorNotBetween(Integer value1, Integer value2) {
+            addCriterion("favor not between", value1, value2, "favor");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

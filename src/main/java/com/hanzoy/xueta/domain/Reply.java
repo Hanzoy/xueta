@@ -1,11 +1,16 @@
 package com.hanzoy.xueta.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Reply {
     private Integer id;
 
     private Integer reid;
 
     private String reply;
+
+    private Integer favor;
 
     public Integer getId() {
         return id;
@@ -31,6 +36,14 @@ public class Reply {
         this.reply = reply;
     }
 
+    public Integer getFavor() {
+        return favor;
+    }
+
+    public void setFavor(Integer favor) {
+        this.favor = favor;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -40,6 +53,7 @@ public class Reply {
         sb.append(", id=").append(id);
         sb.append(", reid=").append(reid);
         sb.append(", reply=").append(reply);
+        sb.append(", favor=").append(favor);
         sb.append("]");
         return sb.toString();
     }

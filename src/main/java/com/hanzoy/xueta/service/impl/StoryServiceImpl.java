@@ -124,6 +124,7 @@ public class StoryServiceImpl implements StoryService {
         }
         npcjlb.setIshaving(true);
         npcjlb.setReid(role.getReid());
+        npcjlb.setPropnumber(1);
         npcjlbMapper.updateByPrimaryKey(npcjlb);
 
         user.setMoney(user.getMoney() - role.getPrice());

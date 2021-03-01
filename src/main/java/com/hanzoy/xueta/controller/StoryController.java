@@ -1,7 +1,7 @@
 package com.hanzoy.xueta.controller;
 
 import com.hanzoy.xueta.dto.CommonResult;
-import com.hanzoy.xueta.dto.param.BuyParam;
+import com.hanzoy.xueta.dto.param.TokenAndIdParam;
 import com.hanzoy.xueta.dto.param.TokenParam;
 import com.hanzoy.xueta.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class StoryController {
     }
 
     @PostMapping("/buyProps")
-    public CommonResult buyProps(@RequestBody BuyParam param){
+    public CommonResult buyProps(@RequestBody TokenAndIdParam param){
         return storyService.buyProps(param.getToken(), param.getId());
     }
 
     @PostMapping("/buyRoles")
-    public CommonResult buyRoles(@RequestBody BuyParam param){
+    public CommonResult buyRoles(@RequestBody TokenAndIdParam param){
         return storyService.buyRoles(param.getToken(), param.getId());
     }
 }

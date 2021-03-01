@@ -7,4 +7,5 @@ public interface NPCService {
     void triggerThePlot(int userId, int Reid);
     void setReid(int userId, int npcId, int Reid);
     CommonResult getInfo(String token);
+    CommonResult getDialogue(String token, int id);
 }

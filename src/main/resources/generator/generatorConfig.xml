@@ -40,11 +40,11 @@
 <!--        <table tableName="user" domainObjectName="User"/>-->
 <!--        <table tableName="aphorism" domainObjectName="Aphorism"/>-->
 <!--        <table tableName="prop" domainObjectName="Prop"/>-->
-        <table tableName="role" domainObjectName="Role"/>
+<!--        <table tableName="role" domainObjectName="Role"/>-->
 <!--        <table tableName="npcjlb" domainObjectName="Npcjlb"/>-->
 <!--        <table tableName="dialogue" domainObjectName="Dialogue"/>-->
 <!--        <table tableName="content" domainObjectName="Content"/>-->
-<!--        <table tableName="reply" domainObjectName="Reply"/>-->
+        <table tableName="reply" domainObjectName="Reply"/>
     </context>
 
 </generatorConfiguration>
