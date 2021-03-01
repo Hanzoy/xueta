@@ -45,6 +45,12 @@ public class CommonResult<T> {
         return fail(code, message, null);
     }
 
+    public static <T> CommonResult<T> fail(){
+        return  fail(ResultEnum.FAILED.getCode(), ResultEnum.FAILED.getMessage());
+    }
+    public static <T> CommonResult<T> fail(String message){
+        return fail(ResultEnum.FAILED.getCode(), message);
+    }
     public static <T> CommonResult<T> validateFailed(String message) {
         return new CommonResult<>(ResultEnum.VALIDATEFAILED.getCode(), message);
     }

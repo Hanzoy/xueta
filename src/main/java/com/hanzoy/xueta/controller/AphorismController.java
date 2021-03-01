@@ -4,6 +4,7 @@ import com.hanzoy.xueta.dto.CommonResult;
 import com.hanzoy.xueta.dto.param.TokenParam;
 import com.hanzoy.xueta.service.AphorismService;
 import com.hanzoy.xueta.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

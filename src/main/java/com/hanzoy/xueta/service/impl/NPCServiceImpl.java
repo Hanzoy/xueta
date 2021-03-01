@@ -109,24 +109,24 @@ public class NPCServiceImpl implements NPCService {
             List<Content> contents = contentMapper.selectByExample(contentExample);
             List<Reply> replies = replyMapper.selectByExample(replyExample);
 
+            List<String> contentsList = new ArrayList<>();
+            List<String> repliesList = new ArrayList<>();
+
             for (Content content : contents) {
-                content.setReid(null);
-                content.setId(null);
+                contentsList.add(content.getContent());
             }
             for (Reply reply : replies) {
-                reply.setReid(null);
-                reply.setId(null);
-                reply.setFavor(null);
+                repliesList.add(reply.getReply());
             }
             info.put("Reid", dialogue.getReid());
-            info.put("content",contents);
-            info.put("reply", replies);
+            info.put("content", contentsList);
+            info.put("reply", repliesList);
             data.put("info", info);
             npcjlb.setPropnumber(npcjlb.getPropnumber() - 1);
             npcjlbMapper.updateByPrimaryKey(npcjlb);
 
             return CommonResult.success(data);
-        } else if(dialogue.getIscontinue()){
+        } else if (dialogue.getIscontinue()) {
             npcjlb.setReid(dialogue.getReid());
             data.put("isContinue", (dialogue.getIscontinue() || (npcjlb.getPropnumber() != null && npcjlb.getPropnumber() > 0)) && dialogue.getNextid() > 0);
             HashMap<String, Object> info = new HashMap<>();
@@ -140,27 +140,121 @@ public class NPCServiceImpl implements NPCService {
 
             List<Content> contents = contentMapper.selectByExample(contentExample);
             List<Reply> replies = replyMapper.selectByExample(replyExample);
-            List<Content> contentList = new ArrayList<>();
-            Content content1 = new Content();
-            content1.setContent("你还没回答我的问题呢");
-            contentList.add(content1);
+
+            List<String> contentsList = new ArrayList<>();
+            List<String> repliesList = new ArrayList<>();
+
+            contentsList.add("你还没回答我的问题呢");
             for (Content content : contents) {
-                contentList.add(content);
-                content.setReid(null);
-                content.setId(null);
+                contentsList.add(content.getContent());
             }
             for (Reply reply : replies) {
-                reply.setReid(null);
-                reply.setId(null);
-                reply.setFavor(null);
+                repliesList.add(reply.getReply());
             }
             info.put("Reid", dialogue.getReid());
-            info.put("content",contentList);
-            info.put("reply", replies);
+            info.put("content", contentsList);
+            info.put("reply", repliesList);
             data.put("info", info);
 
             return CommonResult.success(data);
         }
         return CommonResult.fail("1002", "错误");
+    }
+
+    @Override
+    public CommonResult reply(String token, int npcId, int order, int Reid) {
+        User user = userService.getUserByToken(token);
+        Npcjlb npcjlb = npcjlbMapper.selectByPrimaryKey(user.getId(), npcId);
+
+        Dialogue dialogue = dialogueMapper.selectByPrimaryKey(npcjlb.getReid());
+        HashMap<String, Object> data = new HashMap<>();
+        if ((dialogue.getIscontinue() || (npcjlb.getPropnumber() != null && npcjlb.getPropnumber() > 0)) && dialogue.getNextid() > 0) {
+            if (npcjlb.getReid() == Reid) {
+                ReplyExample replyExamples = new ReplyExample();
+                replyExamples.createCriteria()
+                        .andReidEqualTo(Reid);
+                List<Reply> repliess = replyMapper.selectByExample(replyExamples);
+                Reply replys = repliess.get(order);
+                npcjlb.setFavor(npcjlb.getFavor() + replys.getFavor());
+
+                dialogue = dialogueMapper.selectByPrimaryKey(dialogue.getNextid());
+
+                npcjlb.setReid(dialogue.getReid());
+                dialogue = dialogueMapper.selectByPrimaryKey(dialogue.getReid());
+                data.put("isContinue", (dialogue.getIscontinue() || (npcjlb.getPropnumber() != null && npcjlb.getPropnumber() > 0)) && dialogue.getNextid() > 0);
+                HashMap<String, Object> info = new HashMap<>();
+
+                ContentExample contentExample = new ContentExample();
+                contentExample.createCriteria()
+                        .andReidEqualTo(dialogue.getReid());
+                ReplyExample replyExample = new ReplyExample();
+                replyExample.createCriteria()
+                        .andReidEqualTo(dialogue.getReid());
+
+                List<Content> contents = contentMapper.selectByExample(contentExample);
+                List<Reply> replies = replyMapper.selectByExample(replyExample);
+
+                List<String> contentsList = new ArrayList<>();
+                List<String> repliesList = new ArrayList<>();
+
+                for (Content content : contents) {
+                    contentsList.add(content.getContent());
+                }
+                for (Reply reply : replies) {
+                    repliesList.add(reply.getReply());
+                }
+                info.put("Reid", dialogue.getReid());
+                info.put("content", contentsList);
+                info.put("reply", repliesList);
+                data.put("info", info);
+
+                if(!(boolean)data.get("isContinue")){
+                    Role role = roleMapper.selectByPrimaryKey(npcId);
+                    HashMap<String, Object> pyc = new HashMap<>();
+                    pyc.put("id", npcId);
+                    pyc.put("name", role.getName());
+                    pyc.put("headPicture", role.getPicture());
+                    pyc.put("content", dialogue.getContent());
+                    pyc.put("picture", dialogue.getPicture());
+                    data.put("pyc", pyc);
+                }
+
+                npcjlbMapper.updateByPrimaryKey(npcjlb);
+
+                return CommonResult.success(data);
+            } else {
+                npcjlb.setReid(dialogue.getReid());
+                data.put("isContinue", (dialogue.getIscontinue() || (npcjlb.getPropnumber() != null && npcjlb.getPropnumber() > 0)) && dialogue.getNextid() > 0);
+                HashMap<String, Object> info = new HashMap<>();
+
+                ContentExample contentExample = new ContentExample();
+                contentExample.createCriteria()
+                        .andReidEqualTo(dialogue.getReid());
+                ReplyExample replyExample = new ReplyExample();
+                replyExample.createCriteria()
+                        .andReidEqualTo(dialogue.getReid());
+
+                List<Content> contents = contentMapper.selectByExample(contentExample);
+                List<Reply> replies = replyMapper.selectByExample(replyExample);
+
+                List<String> contentsList = new ArrayList<>();
+                List<String> repliesList = new ArrayList<>();
+
+                contentsList.add("我似乎没有跟上你的节奏");
+                for (Content content : contents) {
+                    contentsList.add(content.getContent());
+                }
+                for (Reply reply : replies) {
+                    repliesList.add(reply.getReply());
+                }
+                info.put("Reid", dialogue.getReid());
+                info.put("content", contentsList);
+                info.put("reply", repliesList);
+                data.put("info", info);
+
+                return CommonResult.success(data);
+            }
+        }
+        return null;
     }
 }

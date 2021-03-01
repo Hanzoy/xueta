@@ -1,6 +1,7 @@
 package com.hanzoy.xueta.controller;
 
 import com.hanzoy.xueta.dto.CommonResult;
+import com.hanzoy.xueta.dto.param.ReplyParam;
 import com.hanzoy.xueta.dto.param.TokenAndIdParam;
 import com.hanzoy.xueta.dto.param.TokenParam;
 import com.hanzoy.xueta.service.NPCService;
@@ -25,5 +26,10 @@ public class NPCController {
     @PostMapping("/getDialogue")
     public CommonResult getDialogue(@RequestBody TokenAndIdParam param){
         return npcService.getDialogue(param.getToken(), param.getId());
+    }
+
+    @PostMapping("/reply")
+    public CommonResult reply(@RequestBody ReplyParam param){
+        return npcService.reply(param.getToken(), param.getId(), param.getOrder(), param.getReid());
     }
 }

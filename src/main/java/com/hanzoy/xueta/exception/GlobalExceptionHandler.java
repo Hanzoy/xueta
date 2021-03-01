@@ -2,6 +2,8 @@ package com.hanzoy.xueta.exception;
 
 
 import com.hanzoy.xueta.dto.CommonResult;
+import com.hanzoy.xueta.exception.exception.SignErrorException;
+import com.hanzoy.xueta.exception.exception.TokenErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
@@ -38,4 +40,13 @@ public class GlobalExceptionHandler {
     public CommonResult handleTokenErrorException(TokenErrorException e){
         return CommonResult.tokenError(e.getMessage());
     }
+
+    @ExceptionHandler(SignErrorException.class)
+    public CommonResult handleTokenErrorException(SignErrorException e){
+        return CommonResult.fail(e.getMessage());
+    }
+//    @ExceptionHandler(IndexOutOfBoundsException.class)
+//    public CommonResult handleIndexOutOfBoundsException(IndexOutOfBoundsException e){
+//        return CommonResult.validateFailed("数据内容异常");
+//    }
 }

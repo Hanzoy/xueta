@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class XhhEnc {
     public static void main(String[] args) {
-        System.out.println(enc("2021-03-01 19:20 test aa"));
+        System.out.println(enc("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2IiwiZXhwIjoxNjE1MjMxNTc3LCJ1c2VybmFtZSI6IlwiMzIxMzIxXCIifQ.guTJTdHMg8YbndFtWgkUUAFSUFROusGEuxhx3RuT_tY30"));
     }
 
     public static String enc(String body) {

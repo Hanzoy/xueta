@@ -5,6 +5,7 @@ import com.hanzoy.xueta.dto.CommonResult;
 import com.hanzoy.xueta.service.ForgetPasswordService;
 import com.hanzoy.xueta.service.UserService;
 import com.hanzoy.xueta.service.VerificationCodeService;
+import com.hanzoy.xueta.utils.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,13 @@ public class ForgetPasswordServiceImpl implements ForgetPasswordService {
     VerificationCodeService verificationCodeService;
 
     public CommonResult getUser(String username) {
+
         User user = userService.getUserByUsername(username);
+
         if(user == null){
             user = userService.getUserByPhone(username);
         }
+
         if(user == null){
             return CommonResult.fail("1002", "未找到对应username或phone");
         }
@@ -85,7 +89,9 @@ public class ForgetPasswordServiceImpl implements ForgetPasswordService {
 //        User user = userService.getUserByPhone(phone);
         User user = userService.getUserByUsername(username);
         user.setPassword(password);
-        userService.updateUser(user);
+        if(HttpUtils.changePassword(user)){
+            userService.updateUser(user);
+        }
         return CommonResult.success(null);
     }
 }
