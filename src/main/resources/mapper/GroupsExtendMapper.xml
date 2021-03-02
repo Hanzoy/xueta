@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanzoy.xueta.mapper.GroupsExtendMapper">
+
+    <select id="getEmerging" resultType="com.hanzoy.xueta.dto.IdAndTimeInfo">
+        select id AS id, tdtime/`groups`.number AS time from xueta.`groups` order by tdtime/`groups`.number DESC;
+    </select>
+
+    <select id="getGeneral" resultType="com.hanzoy.xueta.dto.IdAndTimeInfo">
+        select id AS id, alltime AS time from xueta.`groups` order by alltime DESC ;
+    </select>
+
+    <update id="setZero" >
+        update xueta.`groups` set tdtime = 0;
+    </update>
+</mapper>

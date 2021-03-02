@@ -6,7 +6,9 @@ import java.util.Arrays;
 
 public class XhhEnc {
     public static void main(String[] args) {
-        System.out.println(enc("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2IiwiZXhwIjoxNjE1MjMxNTc3LCJ1c2VybmFtZSI6IlwiMzIxMzIxXCIifQ.guTJTdHMg8YbndFtWgkUUAFSUFROusGEuxhx3RuT_tY30"));
+        System.out.println(enc("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE3IiwiZXhwIjoxNjE1MjcxMjUyLCJ1c2VybmFtZSI6IlwiMTU3NTA0NzhcIiJ9.00v4Ubc9aPKNBbDReJpbkGdQoKwRZxJ7pLycPXL-_-s1"));
+        System.out.println("UVdvdVYycG9VMkpQYUVkVE1GTXdVVFJzUjBjeFUwVlRWMWN3ZEM5d1FXWkZlR0o0UlZOSlJ6RkJRMHRaVDNvM1pHcFRRWGhGWWxNNFpHUTNaR1I0Ym14VE5ERQ== ");
+        System.out.println(enc("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE3IiwiZXhwIjoxNjE1MjcxMjUyLCJ1c2VybmFtZSI6IlwiMTU3NTA0NzhcIiJ9.00v4Ubc9aPKNBbDReJpbkGdQoKwRZxJ7pLycPXL-_-s1").equals("UVdvdVYycG9VMkpQYUVkVE1GTXdVVFJzUjBjeFUwVlRWMWN3ZEM5d1FXWkZlR0o0UlZOSlJ6RkJRMHRaVDNvM1pHcFRRWGhGWWxNNFpHUTNaR1I0Ym14VE5ERQ=="));
     }
 
     public static String enc(String body) {
@@ -149,6 +151,7 @@ public class XhhEnc {
         for (byte b : str) {
             stringBuilder.append((char) b);
         }
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);
         return stringBuilder.toString();
     }
 }

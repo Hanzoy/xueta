@@ -281,6 +281,7 @@ public class UserServiceImpl implements UserService {
                 group.setNumber(HttpUtils.getNumber(groups.getId()));
                 groupsMapper.insert(group);
             }else{
+                group.setNumber(HttpUtils.getNumber(groups.getId()));
                 group.setTdtime(group.getTdtime() + param.getTime());
                 group.setAlltime(group.getAlltime() + param.getTime());
                 groupsMapper.updateByPrimaryKey(group);
