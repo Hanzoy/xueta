@@ -2,6 +2,7 @@ package com.hanzoy.xueta.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Role {
@@ -23,8 +24,9 @@ public class Role {
 
     private Integer favor;
 
+    @JsonProperty("isDialogue")
     private Boolean isdialogue;
-
+    @JsonProperty("isHaving")
     private Boolean ishaving;
 
     @JsonIgnore

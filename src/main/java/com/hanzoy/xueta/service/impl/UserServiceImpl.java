@@ -208,6 +208,16 @@ public class UserServiceImpl implements UserService {
             number+=label.getWeeknumber();
         }
         int size = labels.size();
+        if(size == 0){
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("allTime", 0);
+            data.put("allNumber", 0);
+            data.put("avgTime", 0);
+            data.put("time", 0);
+            data.put("number", 0);
+            data.put("info", new ArrayList<>());
+            return CommonResult.success(data);
+        }
         int ls = 100;
         ArrayList<HashMap<String, Object>> info = new ArrayList<>();
         for(int i=0; i<size-1; i++){
